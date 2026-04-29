@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Dear Darla</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <meta name="description"
+    content="Dear Darla — a print club and mailing service. Curated prints, zines, and paper goods delivered to your mailbox." />
+  <meta name="theme-color" content="#f5f0eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital@0;1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_1_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_1_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_2_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_2_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_3_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_3_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_4_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_4_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_5_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_5_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_6_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_6_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_7_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_7_open.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_8_closed.png" />
+  <link rel="preload" as="image" href="/assets/trinklets/trinklet_8_open.png" />
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav__logo"><img src="/assets/logo.png" alt="Dear Darla" class="nav__logo-img" /></a>
+  </nav>
+
+  <!-- Envelope Hero -->
+  <section class="envelope-section" id="hero">
+    <div class="envelope-heading">
+      <div class="heading-anim">
+        <div class="heading-anim__layer">
+          <span class="heading-anim__name">Dear Darla</span><span class="heading-anim__tail">. Stories in every
+            envelope.</span>
+        </div>
+        <template id="heading-tail-reveal">, is for those with their <span class="quote-accent">box of treasures</span>
+          filled with <span class="quote-accent">whimsical trinkets</span> collected across <span
+            class="quote-accent">timelines</span>.</template>
+      </div>
+    </div>
+    <div class="envelope-wrapper">
+      <img src="/assets/envelope_closed.png" alt="Closed envelope" class="envelope__closed" />
+      <img src="/assets/envelope_back.png" alt="Open envelope back" class="envelope__back" />
+      <div class="card">
+        <div class="card__inner">
+          <div class="card__face card__back">
+            <img src="/assets/card_back.jpg" alt="Dear Darla" />
+          </div>
+          <div class="card__face card__front">
+            <img src="/assets/card_front.jpg" alt="Letter message" />
+          </div>
+        </div>
+      </div>
+      <img src="/assets/envelope_front.png" alt="Open envelope front" class="envelope__front" />
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="section__container">
+      <h2 class="section__heading reveal">Why do we keep things?</h2>
+      <p class="section__lede reveal">
+        We believe small things hold the most weight.<br />
+        A note. A scrap. A keepsake from a moment you'd otherwise forget.These trinkets are proof.
+        <br />So we started passing them along.
+      </p>
+      <div class="about__center">
+        <div class="about__image">
+          <div class="box-hover">
+            <img src="/assets/lid.png" alt="Box lid" class="box-hover__lid" />
+            <div class="box-hover__trinkets">
+              <!-- Trinket 1: Merry Christmas Notebook -->
+              <div class="trinket" data-id="1" data-x="-100%" data-y="-30%" data-r="-40"
+                data-note="Letters I wrote to my future self because younger me wanted to impress the older me, hello?">
+                <img src="/assets/trinklets/trinklet_1_closed.png" alt="Trinket 1" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_1_open.png" alt="Trinket 1 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 2: Santra Bottle & Coaster -->
+              <div class="trinket" data-id="2" data-x="50%" data-y="-55%" data-r="45" style="width: 110%;"
+                data-note="A fraction from the collection of my drinking habits.">
+                <img src="/assets/trinklets/trinklet_2_closed.png" alt="Trinket 2" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_2_open.png" alt="Trinket 2 open" class="trinket__open"
+                  style="transform: rotate(-65deg);" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 3: Yellow Notebook (Home Sweet Home) -->
+              <div class="trinket" data-id="3" data-x="120%" data-y="-80%" data-r="0"
+                data-note="A handmade storybook my sister made for 2022 Valentine’s Day which I keep going back to.">
+                <img src="/assets/trinklets/trinklet_3_closed.png" alt="Trinket 3" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_3_open.png" alt="Trinket 3 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 4: Round Bombay Coaster -->
+              <div class="trinket" data-id="4" data-x="-110%" data-y="-100%" data-r="0"
+                data-note="Coasters on which my partner and I write “secret love letters” on for each other, every time we go to our favourite bar.">
+                <img src="/assets/trinklets/trinklet_4_closed.png" alt="Trinket 4" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_4_open.png" alt="Trinket 4 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 5: Bombay Dreams Stack & Black Square Tin (When Open) -->
+              <div class="trinket" data-id="5" data-x="-5%" data-y="-85%" data-r="-10" style="width: 100%;"
+                data-note="The designs, colours and messages which were too beautiful to discard, so now they live with us.">
+                <img src="/assets/trinklets/trinklet_5_closed.png" alt="Trinket 5" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_5_open.png" alt="Trinket 5 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 6: White Card with Person Riding a Tiger -->
+              <div class="trinket" data-id="6" data-x="-100%" data-y="55%" data-r="0"
+                data-note="In my defence anything can become a love letter, even tissues and visiting cards.">
+                <img src="/assets/trinklets/trinklet_6_closed.png" alt="Trinket 6" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_6_open.png" alt="Trinket 6 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 7: Blue Book (YAM SAI) -->
+              <div class="trinket" data-id="7" data-x="-60%" data-y="-95%" data-r="-25"
+                data-note="The menu card which took a lot of planning to slyly slip into my bag.">
+                <img src="/assets/trinklets/trinklet_7_closed.png" alt="Trinket 7" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_7_open.png" alt="Trinket 7 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+              <!-- Trinket 8: BOJEE Menu -->
+              <div class="trinket" data-id="8" data-x="65%" data-y="30%" data-r="25" style="width: 125%;"
+                data-note="All the menu cards I have “stolen” because they artistically lured me in. It’s their fault they look so cool!">
+                <img src="/assets/trinklets/trinklet_8_closed.png" alt="Trinket 8" class="trinket__closed" />
+                <img src="/assets/trinklets/trinklet_8_open.png" alt="Trinket 8 open" class="trinket__open" />
+                <div class="trinket__bubble">
+                  <p></p>
+                </div>
+              </div>
+            </div>
+            <img src="/assets/box.png" alt="Box" class="box-hover__box" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mailbox / Sign Up -->
+  <section class="mailbox" id="contact">
+    <div class="mailbox__container">
+      <span class="mailbox__kicker reveal">— Issue №01, coming soon —</span>
+
+      <h2 class="mailbox__heading reveal">
+        Send us your <em>address</em>,<br />
+        let us <span style="letter-spacing:0.03em">f</span>ill your <em>mailbox</em>.
+      </h2>
+
+      <p class="mailbox__lede reveal">
+        Once a month, an envelope from my table to yours. Stories, letters, prints and tiny keepsakes, waiting to be
+        part of your treasure box.
+      </p>
+
+      <div class="postcard reveal">
+        <div class="postcard__paper">
+          <div class="postcard__divider" aria-hidden="true"></div>
+
+          <!-- Left: postmark + note -->
+          <div class="postcard__left">
+            <div class="postmark" aria-hidden="true">
+              <svg viewBox="0 0 120 120" class="postmark__svg">
+                <defs>
+                  <path id="postmark-top" d="M 60,60 m -36,0 a 36,36 0 1,1 72,0" />
+                  <path id="postmark-bottom" d="M 60,60 m -44,0 a 44,44 0 1,0 88,0" />
+                </defs>
+                <circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <circle cx="60" cy="60" r="46" fill="none" stroke="currentColor" stroke-width="0.8" />
+                <text class="postmark__top">
+                  <textPath href="#postmark-top" startOffset="50%" text-anchor="middle">DEAR · DARLA · MAILING · CO.
+                  </textPath>
+                </text>
+                <text class="postmark__bottom">
+                  <textPath href="#postmark-bottom" startOffset="50%" text-anchor="middle">— ESTD. 2026 —</textPath>
+                </text>
+                <text x="60" y="58" text-anchor="middle" class="postmark__center-day">26</text>
+                <text x="60" y="74" text-anchor="middle" class="postmark__center-month">IV · MMXXVI</text>
+              </svg>
+            </div>
+            <p class="postcard__note">
+              <span class="postcard__note-ps">P.S.</span>
+              Us feelers, readers and lovers all need their favourite writer, let me be yours with letters, colours and
+              stories. Just say Yes!
+            </p>
+            <div class="postcard__signature">
+              <span>xx,</span>
+              <span class="postcard__signature-name">Darla</span>
+            </div>
+          </div>
+
+          <!-- Right: stamp + form -->
+          <div class="postcard__right">
+            <div class="postcard__stamp" aria-hidden="true">
+              <div class="postcard__stamp-inner">
+                <span class="postcard__stamp-value">№ 01</span>
+                <span class="postcard__stamp-name">Dear Darla</span>
+              </div>
+            </div>
+
+            <form class="postcard__form" novalidate>
+              <span class="postcard__form-label">Mail&nbsp;it&nbsp;to:</span>
+              <label class="postcard__field">
+                <input type="email" name="email" placeholder="your@address.here" autocomplete="email" required />
+              </label>
+              <div class="postcard__field postcard__field--decoration" aria-hidden="true"></div>
+              <div class="postcard__field postcard__field--decoration postcard__field--short" aria-hidden="true"></div>
+              <button type="submit" class="postcard__send">
+                <span class="postcard__send-text">Send me mail</span>
+                <span class="postcard__send-arrow" aria-hidden="true">→</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <p class="mailbox__footnote reveal">
+        <span>(unsubscribe with one click — we'll still wave from across the street)</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <span class="footer__logo">DEAR DARLA</span>
+      <p class="footer__copy">&copy; 2026 Dear Darla. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

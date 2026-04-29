@@ -1,0 +1,19 @@
+{
+  "name": "dear-darla",
+  "version": "1.0.0",
+  "description": "Dear Darla — a print club and mailing service delivering curated prints, zines, and paper goods.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.104.1",
+    "gsap": "^3.12.0",
+    "lenis": "^1.1.0"
+  }
+}
