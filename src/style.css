@@ -108,6 +108,7 @@ a {
   position: relative;
   width: min(60em, 70vw);
   margin: 0 auto;
+  text-align: center;
 }
 
 .heading-anim__layer {
@@ -117,27 +118,42 @@ a {
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--fg);
-  text-align: left;
+  text-align: center;
 }
 
 .heading-anim__name {
+  display: block;
   font-style: italic;
   color: var(--accent);
   letter-spacing: -0.02em;
+  font-size: 1em;
 }
 
 .heading-anim__tail {
+  display: block;
+  font-size: 0.7em;
   letter-spacing: -0.02em;
+  margin-top: 0.8rem;
+}
+
+.heading-anim__tail.is-reveal {
+  display: block;
+  font-family: var(--font);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--fg);
+  letter-spacing: normal;
+  max-width: 42ch;
+  margin: 0.8rem auto 0;
 }
 
 
 .quote-accent {
-  font-style: italic;
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  font-style: normal;
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .quote-underline {
@@ -993,7 +1009,7 @@ a {
   }
 
   .heading-anim__layer {
-    font-size: clamp(1.2rem, 5.5vw, 1.8rem);
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
   }
 
   .envelope-wrapper {

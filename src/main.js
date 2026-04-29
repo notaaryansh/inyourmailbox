@@ -51,6 +51,7 @@ if (headingTail && revealTemplate) {
       ease: 'power2.inOut',
       onComplete: () => {
         headingTail.innerHTML = revealTemplate.innerHTML;
+        headingTail.classList.add('is-reveal');
       },
     })
     .to(headingTail, {
