@@ -246,8 +246,9 @@ if (boxHover) {
     if (bubble) bubble.textContent = trinket.getAttribute('data-note');
   });
 
-  let isOpen = true; // trinkets always visible for now
-  gsap.set(boxLid, { opacity: 0 }); // hide lid for now
+  let isOpen = false;
+  let isRevealing = false;
+  gsap.set(boxLid, { opacity: 1, x: 0, y: 0, rotation: 0, force3D: true });
 
   // Mobile detection + vertical cascade positions (matches reference image)
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -275,102 +276,115 @@ if (boxHover) {
     };
   }
 
-  // Set initial state — show all trinkets at their scatter positions
+  // Cache target scatter position; start trinkets collapsed inside the box
   trinkets.forEach((trinket) => {
     const { x, y, r } = getTrinketPos(trinket);
-    gsap.set(trinket, { xPercent: -50, yPercent: -50, x, y, rotation: r, scale: 1, opacity: 1, force3D: true });
+    trinket._target = { x, y, r };
+    gsap.set(trinket, { xPercent: -50, yPercent: -50, x: 0, y: 0, rotation: 0, scale: 0.2, opacity: 0, force3D: true });
 
-    // Counter-rotate bubble to keep text perfectly horizontal (x-axis)
     const bubble = trinket.querySelector('.trinket__bubble');
     if (bubble) {
       gsap.set(bubble, { xPercent: -50, rotation: -r });
     }
 
-    trinket.style.pointerEvents = 'auto';
+    trinket.style.pointerEvents = 'none';
   });
 
-  const openBox = () => {
-    if (isOpen) return;
-    isOpen = true;
+  let isAnimating = false;
+
+  const revealTrinkets = () => {
+    if (isOpen || isAnimating) return;
+    isAnimating = true;
 
     gsap.killTweensOf(trinkets);
     gsap.killTweensOf(boxLid);
 
-    const tl = gsap.timeline();
-
-    // Phase 1: Lid slides right and fades away
-    tl.to(boxLid, {
-      x: '100%',
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power2.inOut',
-      force3D: true,
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // Snap to exact target — guarantees pixel-precise final positions
+        // regardless of any overshoot easing artefact.
+        trinkets.forEach((trinket) => {
+          const t = trinket._target;
+          gsap.set(trinket, { x: t.x, y: t.y, rotation: t.r, scale: 1, opacity: 1, force3D: true });
+          trinket.style.pointerEvents = 'auto';
+        });
+        isAnimating = false;
+        isOpen = true;
+      },
     });
 
-    // Phase 2: Trinkets scatter to their positions
-    trinkets.forEach((trinket, i) => {
-      const { x, y, r } = getTrinketPos(trinket);
+    tl.to(boxLid, {
+      rotation: -110,
+      y: -30,
+      x: -20,
+      opacity: 0,
+      duration: 0.35,
+      ease: 'back.in(1.4)',
+      force3D: true,
+    }, 0);
 
+    trinkets.forEach((trinket, i) => {
+      const t = trinket._target;
       tl.to(trinket, {
-        x: x,
-        y: y,
-        rotation: r,
+        x: t.x,
+        y: t.y,
+        rotation: t.r,
         scale: 1,
         opacity: 1,
-        duration: 0.6,
-        ease: 'back.out(1.2)',
+        duration: 0.7,
+        ease: 'back.out(1.3)',
         force3D: true,
-        onStart: () => { trinket.style.pointerEvents = 'auto'; },
-      }, 0.5 + i * 0.04);
+      }, 0.12 + i * 0.04);
     });
   };
 
-  const closeBox = () => {
-    if (!isOpen) return;
+  const collapseTrinkets = () => {
+    if (!isOpen || isAnimating) return;
+    isAnimating = true;
     isOpen = false;
     closeAllTrinkets();
 
     gsap.killTweensOf(trinkets);
     gsap.killTweensOf(boxLid);
 
-    const tl = gsap.timeline();
+    trinkets.forEach((t) => { t.style.pointerEvents = 'none'; });
 
-    // Phase 1: Trinkets retract to center
+    const tl = gsap.timeline({
+      onComplete: () => { isAnimating = false; },
+    });
+
     tl.to(trinkets, {
       x: 0,
       y: 0,
       rotation: 0,
-      scale: 0,
+      scale: 0.2,
       opacity: 0,
-      duration: 0.35,
-      stagger: 0.02,
-      ease: 'power2.inOut',
+      duration: 0.4,
+      stagger: { each: 0.03, from: 'end' },
+      ease: 'power2.in',
       force3D: true,
-      onComplete: function () {
-        this.targets().forEach((t) => { t.style.pointerEvents = 'none'; });
-      },
-    });
+    }, 0);
 
-    // Phase 2: Lid slides back in
     tl.to(boxLid, {
+      rotation: 0,
       x: 0,
+      y: 0,
       opacity: 1,
-      duration: 0.5,
-      ease: 'power2.inOut',
+      duration: 0.3,
+      ease: 'back.out(1.2)',
       force3D: true,
-    });
+    }, 0.25);
   };
 
-  let closeTimer = null;
-
-  // Hover disabled for now
-  // boxHover.addEventListener('mouseenter', () => {
-  //   if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-  //   openBox();
-  // });
-  // boxHover.addEventListener('mouseleave', () => {
-  //   closeTimer = setTimeout(() => { closeBox(); closeTimer = null; }, 200);
-  // });
+  // Toggle on box tap. Capture phase so the .about delegated handler (which
+  // runs pixel hit-detection) doesn't fight with us. Clicks that land on a
+  // trinket are passed through to the existing bubble-open logic.
+  boxHover.addEventListener('click', (e) => {
+    if (e.target.closest('.trinket')) return;
+    if (isAnimating) return;
+    if (isOpen) collapseTrinkets();
+    else revealTrinkets();
+  }, { capture: true });
 
   // Helper to check pixel transparency
   function isClickOnTransparentPixel(e, img) {
