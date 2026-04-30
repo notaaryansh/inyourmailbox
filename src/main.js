@@ -88,7 +88,7 @@ const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
 const getEnvelopeRestTop = () => (isMobileViewport() ? '62%' : '74%');
 const getEnvelopeRestY = () => '0%';
 const getCardScaleUp = () => (isMobileViewport() ? 1.2 : 1.8);
-const getCardSlideUpBottom = () => (isMobileViewport() ? '80%' : '95%');
+const getCardSlideUpBottom = () => (isMobileViewport() ? '80%' : '80%');
 const getCardSlideUpYPercent = () => (isMobileViewport() ? 0 : 0);
 
 // Entrance animation: envelope slides up from below
@@ -235,13 +235,18 @@ const closeAllTrinkets = () => {
 };
 
 if (boxHover) {
-  // Preload all trinket images
+  // Eagerly decode only the closed-state images (the ones that animate
+  // during the reveal); open-state images decode lazily on first tap so
+  // the GPU isn't holding their textures during the burst animation.
   trinkets.forEach((trinket) => {
-    trinket.querySelectorAll('img').forEach((img) => {
-      img.loading = 'eager';
-      if (img.decode) img.decode().catch(() => { });
-    });
-    // Populate bubble text
+    const closed = trinket.querySelector('.trinket__closed');
+    if (closed) {
+      closed.loading = 'eager';
+      if (closed.decode) closed.decode().catch(() => { });
+    }
+    const open = trinket.querySelector('.trinket__open');
+    if (open) open.loading = 'lazy';
+
     const bubble = trinket.querySelector('.trinket__bubble p');
     if (bubble) bubble.textContent = trinket.getAttribute('data-note');
   });
@@ -254,12 +259,12 @@ if (boxHover) {
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const mobilePositions = {
     '5': { x: '-35%', y: '-290%', r: -20 },   // Top-left: Bombay Dreams
-    '2': { x: '40%', y: '-270%', r: 10 },   // Top-right: Santra bottle
+    '2': { x: '-35%', y: '-70%', r: 10 },   // Lower-left (was Tiger): Santra bottle
     '4': { x: '5%', y: '-225%', r: -5 },   // Mid-left: Bombay coaster
-    '3': { x: '40%', y: '-175%', r: 5 },    // Mid-right: Yellow notebook
+    '3': { x: '40%', y: '-200%', r: 12 },    // Mid-right: Yellow notebook
     '1': { x: '-40%', y: '-195%', r: -12 },  // Left: Christmas notebook
     '7': { x: '5%', y: '-115%', r: -20 },   // Center-right: Yam Sai
-    '6': { x: '-35%', y: '-70%', r: -8 },   // Lower-left: Tiger cards
+    '6': { x: '42%', y: '-320%', r: 18 },   // Top-right (was Santra): Tiger cards
     '8': { x: '40%', y: '-75%', r: 35 },   // Lower-right: BOJEE menu
   };
 
@@ -291,10 +296,36 @@ if (boxHover) {
   });
 
   let isAnimating = false;
+  let lidJitterTl = null;
+
+  // Subtle lid wiggle to hint that the box is interactive. Plays in bursts
+  // (quick shake → long pause → repeat) instead of a constant jiggle, which
+  // is more attention-grabbing and less visually fatiguing.
+  const startLidJitter = () => {
+    stopLidJitter();
+    lidJitterTl = gsap.timeline({ repeat: -1, repeatDelay: 2.4 });
+    lidJitterTl
+      .to(boxLid, { rotation: -2.5, y: -1.5, duration: 0.08, ease: 'power1.inOut' })
+      .to(boxLid, { rotation: 2, y: 0, duration: 0.08, ease: 'power1.inOut' })
+      .to(boxLid, { rotation: -1.5, y: -1, duration: 0.08, ease: 'power1.inOut' })
+      .to(boxLid, { rotation: 0, y: 0, duration: 0.12, ease: 'power1.out' });
+  };
+
+  const stopLidJitter = () => {
+    if (lidJitterTl) {
+      lidJitterTl.kill();
+      lidJitterTl = null;
+      // Snap back to rest so any subsequent tween starts from a clean state.
+      gsap.set(boxLid, { rotation: 0, y: 0 });
+    }
+  };
+
+  startLidJitter();
 
   const revealTrinkets = () => {
     if (isOpen || isAnimating) return;
     isAnimating = true;
+    stopLidJitter();
 
     gsap.killTweensOf(trinkets);
     gsap.killTweensOf(boxLid);
@@ -350,7 +381,10 @@ if (boxHover) {
     trinkets.forEach((t) => { t.style.pointerEvents = 'none'; });
 
     const tl = gsap.timeline({
-      onComplete: () => { isAnimating = false; },
+      onComplete: () => {
+        isAnimating = false;
+        startLidJitter();
+      },
     });
 
     tl.to(trinkets, {

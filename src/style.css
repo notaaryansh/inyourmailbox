@@ -347,6 +347,10 @@ a {
   flex-shrink: 0;
 }
 
+.br-lg-only {
+  display: none;
+}
+
 .section__lede-emphasis {
   font-style: italic;
   font-weight: 600;
@@ -441,6 +445,26 @@ a {
 
 .trinket__closed {
   pointer-events: auto;
+}
+
+/* Yellow notebook (trinket 3): nudge the open-spread up in size so its
+   visible length matches the closed cover's visible length (the closed
+   art at an angle reads denser/bigger than the flatter spread). */
+.trinket[data-id="3"] .trinket__open {
+  transform: scale(1.25);
+  transform-origin: center center;
+}
+
+/* Tiger card (trinket 6): scale up the open spread so it reads as
+   substantial as the closed single card; tilt it clockwise. */
+.trinket[data-id="6"] .trinket__open {
+  transform: scale(1.25) rotate(25deg);
+  transform-origin: center center;
+}
+
+.trinket[data-id="6"] .trinket__closed {
+  transform: rotate(20deg);
+  transform-origin: center center;
 }
 
 .trinket.is-open .trinket__closed {
@@ -980,6 +1004,155 @@ a {
   color: var(--muted);
 }
 
+/* ───── Mailbox: laptop / large screen scale-up ───── */
+@media (min-width: 1024px) {
+  /* Match "Dear Darla" hero heading size to mailbox heading */
+  .heading-anim {
+    width: min(64em, 75vw);
+  }
+
+  .heading-anim__layer {
+    font-size: clamp(2.8rem, 4.2vw, 4rem);
+  }
+
+  .heading-anim__tail.is-reveal {
+    font-size: 1.25rem;
+    max-width: 52ch;
+  }
+
+  .about .section__heading {
+    font-size: clamp(2.8rem, 4.2vw, 4rem);
+    max-width: 24ch;
+  }
+
+  .about .section__lede {
+    font-size: 1.15rem;
+    max-width: 52rem;
+  }
+
+  .br-lg-only {
+    display: inline;
+  }
+
+  .mailbox {
+    padding: 4rem 2rem;
+  }
+
+  .mailbox__container {
+    max-width: 1180px;
+  }
+
+  .mailbox__kicker {
+    font-size: 0.78rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mailbox__heading {
+    font-size: clamp(2.8rem, 4.2vw, 4rem);
+    max-width: 24ch;
+    margin-bottom: 1.25rem;
+  }
+
+  .mailbox__lede {
+    font-size: 1.1rem;
+    max-width: 50ch;
+    margin-bottom: 3rem;
+  }
+
+  .postcard {
+    width: min(1000px, 88vw);
+  }
+
+  .postcard__paper {
+    padding: 2.25rem 2.5rem;
+  }
+
+  .postcard__left {
+    padding-right: 2rem;
+    gap: 1.15rem;
+  }
+
+  .postcard__right {
+    padding-left: 2rem;
+  }
+
+  .postmark {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+
+  .postmark__top,
+  .postmark__bottom {
+    font-size: 11px;
+  }
+
+  .postmark__center-day {
+    font-size: 24px;
+  }
+
+  .postmark__center-month {
+    font-size: 10px;
+  }
+
+  .postcard__note {
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+
+  .postcard__signature {
+    font-size: 1.05rem;
+    gap: 0.65rem;
+  }
+
+  .postcard__signature-name {
+    font-size: 1.55rem;
+  }
+
+  .postcard__stamp {
+    width: 4.6rem;
+    height: 5.6rem;
+    top: -1.85rem;
+    right: -1rem;
+    padding: 0.5rem;
+  }
+
+  .postcard__stamp-value {
+    font-size: 0.9rem;
+  }
+
+  .postcard__stamp-name {
+    font-size: 0.55rem;
+  }
+
+  .postcard__stamp-foot {
+    font-size: 0.5rem;
+  }
+
+  .postcard__form-label {
+    font-size: 0.72rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .postcard__field {
+    height: 2.25rem;
+  }
+
+  .postcard__field input {
+    font-size: 1.25rem;
+  }
+
+  .postcard__send {
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.8rem;
+  }
+
+  .mailbox__footnote {
+    margin-top: 2.25rem;
+    font-size: 0.95rem;
+  }
+}
+
 /* ───── Responsive ───── */
 @media (max-width: 768px) {
   .nav {
@@ -1125,6 +1298,28 @@ a {
 
   .trinket {
     width: 110% !important;
+  }
+
+  /* BOJEE menu (trinket 8) is wider than the others; on mobile the 110%
+     base + its position pushes it off-screen. Trim it down here. */
+  .trinket[data-id="8"] {
+    width: 102% !important;
+  }
+
+  /* Tiger card (trinket 6) also spills off-screen on mobile. */
+  .trinket[data-id="6"] {
+    width: 95% !important;
+  }
+
+  /* Yellow notebook (trinket 3): the open spread is 1.25x scale; combined
+     with the 110% base it clips on small screens. */
+  .trinket[data-id="3"] {
+    width: 95% !important;
+  }
+
+  /* Yellow notebook open spread: tilt -30 on mobile only. */
+  .trinket[data-id="3"] .trinket__open {
+    transform: scale(1.25) rotate(-30deg);
   }
 
   .trinket__bubble {
