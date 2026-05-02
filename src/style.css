@@ -533,12 +533,11 @@ a {
 /* ───── Mailbox / Sign Up ───── */
 .mailbox {
   position: relative;
-  height: calc(100vh - 4.25rem);
-  height: calc(100lvh - 4.25rem);
+  min-height: calc(100vh - 4.25rem);
+  min-height: calc(100lvh - 4.25rem);
   padding: 3rem 1.5rem;
   background: var(--bg);
   color: var(--fg);
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1270,7 +1269,7 @@ a {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .about {
     height: auto;
     min-height: auto;
@@ -1328,5 +1327,28 @@ a {
 
   .trinket__bubble p {
     font-size: 0.72rem;
+  }
+}
+
+/* Tablet: keep laptop-style about layout but scale the box+trinkets down
+   so the scattered trinkets stay within the section width. */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .box-hover {
+    width: clamp(240px, 32vw, 320px);
+  }
+
+  .about__center {
+    padding-bottom: 7rem;
+  }
+}
+
+/* Below the laptop breakpoint the mailbox section needs to grow with its
+   content; otherwise the footnote ("unsubscribe with one click…") gets
+   clipped by the fixed-height + overflow:hidden on the section. */
+@media (max-width: 1023px) {
+  .mailbox {
+    height: auto !important;
+    min-height: auto;
+    overflow: visible !important;
   }
 }
